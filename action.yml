@@ -1,0 +1,13 @@
+name: 'Update Android Play Store Version Code'
+description: ''
+author: 'FFS'
+inputs:
+  serviceAccountJson:
+    description: "The service account json private key file to authorize the upload request"
+    required: true
+  packageName:
+    description: "The package name, or Application Id, of the app you are uploading"
+    required: true
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
