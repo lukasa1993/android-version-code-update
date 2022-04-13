@@ -4,15 +4,11 @@ This action will help you update the version code of your app using the Google P
 
 ## Inputs
 
-_You must provide one of either `serviceAccountJson` or `serviceAccountJsonPlainText`_
+_You must provide  `serviceAccountJson`
 
 ### `serviceAccountJson`
 
 The service account json private key file to authorize the upload request
-
-### `serviceAccountJsonPlainText`
-
-The service account json in plain text, provided via a secret, etc.
 
 ### `packageName`
 
