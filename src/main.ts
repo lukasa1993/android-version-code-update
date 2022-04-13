@@ -1,6 +1,5 @@
 import * as core from "@actions/core";
 import { google } from "googleapis";
-import { UpdateVersionCode } from "./gradle";
 import { fetchVersionCode } from "./publish";
 
 const auth = new google.auth.GoogleAuth({
@@ -29,8 +28,9 @@ async function run(): Promise<void> {
       auth: auth,
       applicationId: packageName
     });
-    core.info(`Your play store version ${versionCode}`);
-    await UpdateVersionCode(versionCode);
+    core.info(`Your play store version ${versionCode} next version ${versionCode + 1}`);
+    core.setOutput("version", versionCode);
+    core.setOutput("next_version", versionCode + 1);
   } catch (error) {
     core.debug(error);
     core.setFailed(error.message);

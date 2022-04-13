@@ -10,7 +10,7 @@ export interface Options {
   applicationId: string;
 }
 
-export async function fetchVersionCode(options: Options): Promise<Number> {
+export async function fetchVersionCode(options: Options): Promise<number> {
   const appEdit = await androidPublisher.edits.insert({
     packageName: options.applicationId,
     auth: options.auth
