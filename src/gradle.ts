@@ -1,6 +1,6 @@
-import * as fs from 'fs'
-import * as path from 'path'
-import * as core from '@actions/core'
+import * as fs from "fs";
+import * as path from "path";
+import * as core from "@actions/core";
 
 async function* walk(dir: string): AsyncIterable<string> {
   for await (const d of await fs.promises.opendir(dir)) {
@@ -30,8 +30,7 @@ export async function UpdateVersionCode(versionCode: Number): Promise<void> {
         const line = lines[index]
         if (line.includes('versionCode')) {
           const re = /[\d]+/g
-          const temp = line.replace(re, String(versionCode))
-          lines[index] = temp
+          lines[index] = line.replace(re, String(versionCode))
         }
       }
       const file = fs.createWriteStream(file_path)
