@@ -1,5 +1,5 @@
 name: 'Update Android Play Store Version Code'
-description: ''
+description: 'updates version code from play store latest version'
 author: 'FFS'
 inputs:
   serviceAccountJson:
