@@ -1,6 +1,6 @@
 {
   "name": "android-version-code-update",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "private": true,
   "description": "TypeScript template action",
   "main": "lib/main.js",
@@ -21,7 +21,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "1.10.0",
     "googleapis": "^65.0.0"
   },
   "devDependencies": {
