@@ -34,11 +34,7 @@ async function run(): Promise<void> {
     if(gradlePath) {
       const gradleFile = fs.readFileSync(gradlePath, 'utf8')
       const matched = gradleFile.match(versionCodeRegexPattern)
-
-      core.info(`Gradle matched : ${matched?.join(',') || "-"}`, );
-      core.info(`Gradle Path : ${gradlePath}`);
-      core.info(`Gradle Version Code : ${gradleVersionCode}`);
-
+      
       gradleVersionCode = parseInt(matched?.[2] || '0');
       gradleVersionCode = isNaN(gradleVersionCode) ? 0 : gradleVersionCode
     }
