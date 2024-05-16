@@ -1,6 +1,7 @@
 import * as core from "@actions/core";
 import { google } from "googleapis";
 import { fetchVersionCode } from "./publish";
+import * as fs from "fs";
 
 const auth = new google.auth.GoogleAuth({
   scopes: ["https://www.googleapis.com/auth/androidpublisher"]
@@ -24,11 +25,33 @@ async function run(): Promise<void> {
       core.exportVariable("GOOGLE_APPLICATION_CREDENTIALS", serviceAccountJson);
     }
 
-    const versionCode = await fetchVersionCode({
+    const versionCodeRegexPattern = /(versionCode(?:\s|=)*)(.*)/;
+    const gradlePaths = [`app/build.gradle`, `android/app/build.gradle`];
+    const gradlePath = gradlePaths.find(p=>fs.existsSync(p))
+
+    let gradleVersionCode = 0
+
+    if(gradlePath) {
+      const gradleFile = fs.readFileSync(gradlePath, 'utf8')
+      const matched = gradleFile.match(versionCodeRegexPattern)
+
+      core.info(`Gradle matched : ${matched?.join(',') || "-"}`, );
+      core.info(`Gradle Path : ${gradlePath}`);
+      core.info(`Gradle Version Code : ${gradleVersionCode}`);
+
+      gradleVersionCode = parseInt(matched?.[0] || '0');
+      gradleVersionCode = isNaN(gradleVersionCode) ? 0 : gradleVersionCode
+    }
+
+    let versionCode = await fetchVersionCode({
       auth: auth,
       applicationId: packageName
     });
-    core.info(`Your play store version ${versionCode} next version ${versionCode + 1}`);
+    core.info(`Your play store version ${versionCode}`);
+
+    versionCode = Math.max(gradleVersionCode, versionCode);
+
+    core.info(`Combined ${versionCode} next version ${versionCode + 1}`);
     core.setOutput("version", versionCode);
     core.setOutput("next_version", versionCode + 1);
   } catch (error) {
