@@ -39,7 +39,7 @@ async function run(): Promise<void> {
       core.info(`Gradle Path : ${gradlePath}`);
       core.info(`Gradle Version Code : ${gradleVersionCode}`);
 
-      gradleVersionCode = parseInt(matched?.[0] || '0');
+      gradleVersionCode = parseInt(matched?.[2] || '0');
       gradleVersionCode = isNaN(gradleVersionCode) ? 0 : gradleVersionCode
     }
 
